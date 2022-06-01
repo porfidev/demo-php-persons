@@ -1,9 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <title>Documento sin título</title>
+  <title>Basic CRUD with PHP | porfidev</title>
 </head>
 
 <body>
@@ -23,15 +23,13 @@ if (isset($_GET["editvalue"])) {
 
   //SI LA CONSULTA NO FUNCIONO, ARROJA UN ERROR
   if (!$consulta) {
-    die('Consulta no Valida: ' . mysqli_error());
+    die('Consulta no Valida: ' . mysqli_error($connection));
   }
 
   //SI LA CONSULTA ARROJO 1 VALOR O MAS REALIZA LO SIGUENTE
   if (mysqli_num_rows($consulta) != 0) {
     //MIENTRAS HAYA VALORES, SE IMPRIMEN CADA UNO DE ELLOS
     while ($resultado = mysqli_fetch_array($consulta)) {
-      echo "" . $resultado["name"];
-      echo "" . $resultado["lastName"];
       echo "<form name=\"editPerson\" method=\"get\" action=\"update.php\">
   						<p>Nombre: <input name=\"name\" type=\"text\" value=\"" . $resultado["name"] . "\"/></p>
   						<p>Apellido <input name=\"lastName\" type=\"text\" value=\"" . $resultado["lastName"] . "\"/></p>
