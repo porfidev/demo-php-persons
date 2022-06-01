@@ -11,28 +11,33 @@
 //INCLUyE LOS DATOS DE CONEXION
 require_once("conexion.php");
 
+/**
+ * @var mysqli $connection
+ */
+
+
 //COMPRUEBA SI HAY UN VALOR PARA BUSCAR
 if (isset($_GET["editvalue"])) {
   //EN CASO DE HABER UN VALOR REALIZA LA SIGUIENTE CONSULTA
-  $consulta = mysql_query("SELECT * FROM PERSON WHERE IDPERSON='" . $_GET["editvalue"] . "'");
+  $consulta = mysqli_query($connection,"SELECT * FROM Persons WHERE id='" . $_GET["editvalue"] . "'");
 
   //SI LA CONSULTA NO FUNCIONO, ARROJA UN ERROR
   if (!$consulta) {
-    die('Consulta no Valida: ' . mysql_error());
+    die('Consulta no Valida: ' . mysqli_error());
   }
 
   //SI LA CONSULTA ARROJO 1 VALOR O MAS REALIZA LO SIGUENTE
-  if (mysql_num_rows($consulta) != 0) {
+  if (mysqli_num_rows($consulta) != 0) {
     //MIENTRAS HAYA VALORES, SE IMPRIMEN CADA UNO DE ELLOS
-    while ($resultado = mysql_fetch_array($consulta)) {
-      echo "" . $resultado["NAME"];
-      echo "" . $resultado["LASTNAME"];
+    while ($resultado = mysqli_fetch_array($consulta)) {
+      echo "" . $resultado["name"];
+      echo "" . $resultado["lastName"];
       echo "<form name=\"editPerson\" method=\"get\" action=\"update.php\">
-  						<p>Nombre: <input name=\"newname\" type=\"text\" value=\"" . $resultado["NAME"] . "\"/></p>
-  						<p>Apellido <input name=\"newlastname\" type=\"text\" value=\"" . $resultado["LASTNAME"] . "\"/></p>
-  						<p>Apellido Materno <input name=\"newmommaidenname\" type=\"text\" value=\"" . $resultado["MOMMAIDENNAME"] . "\"/></p>
-  						<p>Cumpleaños <input type=\"text\" name=\"birthday\"/></p>
-						<input type=\"hidden\" name=\"idperson\" value=\"" . $resultado["IDPERSON"] . "\" />
+  						<p>Nombre: <input name=\"name\" type=\"text\" value=\"" . $resultado["name"] . "\"/></p>
+  						<p>Apellido <input name=\"lastName\" type=\"text\" value=\"" . $resultado["lastName"] . "\"/></p>
+  						<p>Apellido Materno <input name=\"maidenName\" type=\"text\" value=\"" . $resultado["maidenName"] . "\"/></p>
+  						<p>Cumpleaños <input type=\"text\" name=\"birthDate\" value=\"" . $resultado["birthDate"] . "\" /></p>
+						<input type=\"hidden\" name=\"id\" value=\"" . $resultado["id"] . "\" />
  						<p><input type=\"submit\" value=\"Actualizar\" /></p>
 					 </form>";
     }

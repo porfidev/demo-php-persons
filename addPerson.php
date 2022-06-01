@@ -78,7 +78,6 @@ if ($duplicado == false && $isInsert) {
   $result = $stmt->execute();
   $stmt->close();
 
-  var_dump($result);
   if ($result)
     echo "DATO INGRESADO";
   else

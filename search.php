@@ -28,22 +28,27 @@ UN FORMULARIO A LA VEZ -->
 //INCLUyE LOS DATOS DE CONEXION
 require_once("conexion.php");
 
+/**
+ * @var mysqli $connection
+ */
+
 //COMPRUEBA SI HAY UN VALOR PARA BUSCAR
-if ($_GET["valor_busqueda"] != "") {
+if (isset($_GET["valor_busqueda"]) && $_GET["valor_busqueda"] != "") {
   //EN CASO DE HABER UN VALOR REALIZA LA SIGUIENTE CONSULTA
-  $consulta = mysql_query("SELECT * FROM PERSON WHERE NAME='" . $_GET["valor_busqueda"] . "'");
+  $consulta = mysqli_query($connection, "SELECT * FROM Persons WHERE name LIKE '" . $_GET["valor_busqueda"] . "%'");
 
   //SI LA CONSULTA NO FUNCIONO, ARROJA UN ERROR
   if (!$consulta) {
-    die('Consulta no Valida: ' . mysql_error());
+    die('Consulta no Valida: ' . mysqli_error());
   }
 
   //SI LA CONSULTA ARROJO 1 VALOR O MAS REALIZA LO SIGUENTE
-  if (mysql_num_rows($consulta) != 0) {
+  if (mysqli_num_rows($consulta) != 0) {
     //MIENTRAS HAYA VALORES, SE IMPRIMEN CADA UNO DE ELLOS
-    while ($resultado = mysql_fetch_array($consulta)) {
-      echo "" . $resultado["NAME"];
-      echo "" . $resultado["LASTNAME"];
+    while ($resultado = mysqli_fetch_array($consulta)) {
+      $idperson = $resultado["id"];
+      echo "" . $resultado["name"];
+      echo "" . $resultado["lastName"];
       echo "<form name=\"edit_$idperson\" method=\"get\" action=\"edit.php\">
 						<input type=\"hidden\" name=\"editvalue\" value=\"$idperson\" />
 						<input type=\"submit\" value=\"editar\">
@@ -62,22 +67,22 @@ if ($_GET["valor_busqueda"] != "") {
 
 //FUNCION QUE SE ACTIVA AL PRESIONAR EL BOTON "MOSTRAR TODOS"
 //Comprueba si se envio la variable buscar_todo, si es asi realiza lo siguiente
-if ($_GET["buscar_todo"]) {
-  $consulta = mysql_query("SELECT * FROM PERSON");
+if (isset($_GET["buscar_todo"]) && $_GET["buscar_todo"]) {
+  $consulta = mysqli_query($connection, "SELECT * FROM Persons");
 
   //SI LA CONSULTA NO FUNCIONO, ARROJA UN ERROR
   if (!$consulta) {
-    die('Consulta no Valida: ' . mysql_error());
+    die('Consulta no Valida: ' . mysqli_error());
   }
 
   //SI LA CONSULTA ARROJO 1 VALOR O MAS REALIZA LO SIGUENTE
-  if (mysql_num_rows($consulta) != 0) {
+  if (mysqli_num_rows($consulta) != 0) {
     //MIENTRAS HAYA VALORES, SE IMPRIMEN CADA UNO DE ELLOS
-    while ($resultado = mysql_fetch_array($consulta)) {
+    while ($resultado = mysqli_fetch_array($consulta)) {
 
-      $idperson = $resultado["IDPERSON"];
-      echo "" . $resultado["NAME"];
-      echo "" . $resultado["LASTNAME"];
+      $idperson = $resultado["id"];
+      echo "" . $resultado["name"];
+      echo "" . $resultado["lastName"];
       echo "<form name=\"edit_$idperson\" method=\"get\" action=\"edit.php\">
 						<input type=\"hidden\" name=\"editvalue\" value=\"$idperson\" />
 						<input type=\"submit\" value=\"editar\">
@@ -89,9 +94,6 @@ if ($_GET["buscar_todo"]) {
     }
   }
 }
-<<<HTML
-
-HTML;
 ?>
 
 </body>

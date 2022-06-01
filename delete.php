@@ -7,14 +7,18 @@
 </head>
 
 <body>
-<?
+<?php
+
 require_once("conexion.php");
+/**
+ * @var mysqli $connection
+ */
 
 
 if (isset($_GET["deletevalue"])) {
-  $delete = mysql_query("DELETE FROM PERSON WHERE IDPERSON='" . $_GET["deletevalue"] . "'");
+  $delete = mysqli_query($connection, "DELETE FROM Persons WHERE id='" . $_GET["deletevalue"] . "'");
   if (!$delete)
-    die('Error al intentar borrar: ' . mysql_error());
+    die('Error al intentar borrar: ' . mysqli_error());
 
   //EN CASO DE QUE EL BORRADO SEA SATISFACTORIO ENVIA UN MENSAJE
   else
@@ -22,7 +26,7 @@ if (isset($_GET["deletevalue"])) {
 				<br><hr><br>";
 
   //AGREGO UN LINK PARA REGRESAR A search.php
-  echo "<a href=\"search.php\"> _Regresar</a>";
+  echo "<a href=\"search.php\">Regresar</a>";
 }
 ?>
 </body>
