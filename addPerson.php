@@ -7,6 +7,7 @@
 </head>
 
 <body>
+<h1>Agregar nueva persona</h1>
 <?php
 //INCLUyE LOS DATOS DE CONEXION
 require_once("conexion.php");
@@ -39,7 +40,6 @@ if ($_POST) {
 
 } else {
   $html = <<<HTML
-<p>Aqui vamos a agregar un registro</p>
 <form id="form1" name="form1" method="POST" action="#">
   <p><label>Nombre
       <input name="name" type="text"/>
@@ -54,7 +54,7 @@ if ($_POST) {
     </label>
   </p>
   <p><label>Cumpleaños
-      <input type="text" name="birthDate" value="1986-04-16"/>
+      <input type="date" name="birthDate"/>
     </label>
   </p>
   <p>

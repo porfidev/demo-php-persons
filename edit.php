@@ -7,6 +7,7 @@
 </head>
 
 <body>
+<h1>Editar persona</h1>
 <?php
 //INCLUyE LOS DATOS DE CONEXION
 require_once("conexion.php");
@@ -41,7 +42,7 @@ if (isset($_GET["editvalue"])) {
     }
   } //SI LO ANTERIOR ES IGUAL A 0 (CERO) O QUE NO ARROJA NINGuN VALOR DE LA CONSULTA
   else {
-    echo "No hay datos relacionados con tu busqueda";
+    echo "No hay datos relacionados con tu búsqueda";
   }
 }
 ?>

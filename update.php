@@ -7,6 +7,7 @@
 </head>
 
 <body>
+<h1>Resultado de actualización</h1>
 <?php
 //INCLUyE LOS DATOS DE CONEXION
 require_once("conexion.php");
@@ -35,7 +36,7 @@ if (isset($_GET["name"])) {
   if (!$result) {
     die('Consulta no Valida: ' . mysqli_error($connection));
   } else
-    echo "Dato Actualizado<br>";
+    echo "Datos de persona, actualizados.<br /><br />";
 }
 ?>
 <a href="index.php"><< Regresar </a>

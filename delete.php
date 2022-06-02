@@ -7,6 +7,7 @@
 </head>
 
 <body>
+<h1>Resultado de borrado</h1>
 <?php
 
 require_once("conexion.php");
